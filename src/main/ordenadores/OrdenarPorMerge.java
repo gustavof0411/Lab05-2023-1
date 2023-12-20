@@ -3,7 +3,22 @@ public class OrdenarPorMerge implements Ordenador{
 
     @Override
     public int[] ordene(int[] array) {
-        return array;
+        if (array.length <= 1) {
+            return array;
+        }
+        int meio = array.length / 2;
+        int[] metadeEsq = new int[meio];
+        int[] metadeDir = new int[array.length - meio];
+
+        for (int i = 0; i < meio; i++) {
+            metadeEsq[i] = array[i];
+        }
+        for (int i = meio; i < array.length; i++) {
+            metadeDir[i - meio] = array[i];
+        }
+        metadeEsq = ordene(metadeEsq);
+        metadeDir = ordene(metadeDir);
+        return merge(metadeEsq, metadeDir);
     }
 
     public int[] merge(int[] array, int[] array2) {
